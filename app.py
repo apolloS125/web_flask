@@ -64,9 +64,9 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html')
 
-#@app.route('/blog')
-#def blog():
-    return render_template("blog.html")
+@app.route('/blog')
+def blog():
+    return render_template("engigear.html")
 
 if __name__ =="__main__":
     with app.app_context():
