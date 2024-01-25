@@ -68,6 +68,10 @@ def register():
 def blog():
     return render_template("engigear.html")
 
+@app.route('/admin')
+def manage():
+    return 'Test route'
+
 if __name__ =="__main__":
     with app.app_context():
         db.create_all()
