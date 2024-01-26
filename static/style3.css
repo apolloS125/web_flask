@@ -18,6 +18,8 @@ nav {
     justify-content: space-between;
     height: 80px;
     align-items: center;
+    margin-left: 9rem;
+    margin-right: 9rem;
 }
 
 ul.menu {
