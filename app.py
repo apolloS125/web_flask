@@ -37,7 +37,7 @@ def login():
             flash('Invalid username or password', 'error')  
             return redirect(url_for('login'))
     flash_messages = list(get_flashed_messages())
-    return render_template('Login.html', flashed_messages=flash_messages)
+    return render_template('Login_card.html', flashed_messages=flash_messages)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
