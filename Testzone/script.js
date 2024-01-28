@@ -10,7 +10,7 @@ function addCard() {
         newCard.innerHTML = "<h3>" + cardTitle + "</h3><p>" + cardContent + "</p>";
 
         var editButton = createButton("Edit", "edit-button", function() {
-            showPopup(newCard);
+            editCard(newCard);
         });
 
         var deleteButton = createButton("Delete", "delete-button", function() {
@@ -38,25 +38,42 @@ function createButton(text, className, clickHandler) {
 function showPopup(card) {
     var popup = document.createElement("div");
     popup.className = "popup";
-    popup.innerHTML = "<h3>" + card.querySelector("h3").innerText + "</h3><p>" + card.querySelector("p").innerText + "</p>";
+
+    var form = document.createElement("form");
+
+    var titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.value = card.querySelector("h3").innerText;
+
+    var contentInput = document.createElement("textarea");
+    contentInput.value = card.querySelector("p").innerText;
+
+    var saveButton = createButton("Save", "save-button", function() {
+        saveChanges(card, titleInput.value, contentInput.value);
+        document.body.removeChild(popup);
+    });
 
     var closeButton = createButton("Close", "close-button", function() {
         document.body.removeChild(popup);
     });
 
-    popup.appendChild(closeButton);
+    form.appendChild(titleInput);
+    form.appendChild(contentInput);
+    form.appendChild(saveButton);
+    form.appendChild(closeButton);
+
+    popup.appendChild(form);
 
     document.body.appendChild(popup);
 }
 
 function editCard(card) {
-    var newTitle = prompt("Enter new title:");
-    var newContent = prompt("Enter new content:");
+    showPopup(card);
+}
 
-    if (newTitle !== null && newContent !== null) {
-        card.querySelector("h3").innerText = newTitle;
-        card.querySelector("p").innerText = newContent;
-    }
+function saveChanges(card, newTitle, newContent) {
+    card.querySelector("h3").innerText = newTitle;
+    card.querySelector("p").innerText = newContent;
 }
 
 function deleteCard(card) {
