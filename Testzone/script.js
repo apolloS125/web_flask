@@ -10,7 +10,7 @@ function addCard() {
         newCard.innerHTML = "<h3>" + cardTitle + "</h3><p>" + cardContent + "</p>";
 
         var editButton = createButton("Edit", "edit-button", function() {
-            editCard(newCard);
+            showPopup(newCard);
         });
 
         var deleteButton = createButton("Delete", "delete-button", function() {
@@ -33,6 +33,20 @@ function createButton(text, className, clickHandler) {
     button.innerText = text;
     button.onclick = clickHandler;
     return button;
+}
+
+function showPopup(card) {
+    var popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = "<h3>" + card.querySelector("h3").innerText + "</h3><p>" + card.querySelector("p").innerText + "</p>";
+
+    var closeButton = createButton("Close", "close-button", function() {
+        document.body.removeChild(popup);
+    });
+
+    popup.appendChild(closeButton);
+
+    document.body.appendChild(popup);
 }
 
 function editCard(card) {
