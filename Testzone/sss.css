@@ -1,16 +1,17 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: montserrat;
-    background: linear-gradient(120deg, #294fb9, #2779a8);
-    height: 100vh;
-    overflow: hidden;
     font-family: 'Montserrat', sans-serif;
 }
+
 nav {
     background-color: #333;
     color: #fff;
+    padding: 10px;
+}
 
+.container {
+    text-align: left;
 }
 
 .nav-con {
@@ -18,53 +19,78 @@ nav {
     justify-content: space-between;
     height: 80px;
     align-items: center;
-    margin-left: 9rem;
-    margin-right: 9rem;
 }
 
-ul.menu {
-    display: flex;
+.logo h3 {
+    margin: 0;
+}
+
+.menu {
     list-style: none;
+    display: flex;
 }
 
-ul.menu li {
+.menu li {
     margin: 0 1rem;
 }
 
-ul.menu li a {
+.menu a {
     color: #fff;
     text-decoration: none;
-    font-size: 12pt;
+    font-size: 14pt;
 }
 
-ul.menu li a:hover {
+.menu a:hover {
     color: yellow;
     transition: .5s;
 }
-.container {
+
+.main-content {
+    display: flex;
+    flex-direction: row; /* Change to row layout */
+    align-items: center; /* Align items to the center vertically */
+    justify-content: space-between; /* Add space between the items */
+    padding: 20px;
+}
+
+.card_display {
+    display: block;
+    background-color: #fff;
+    border-radius: 5px;
     text-align: center;
+}
+
+.card_display h1 {
+    margin-bottom: 20px;
+}
+
+.card_display button {
+    cursor: pointer;
+    color: white;
+    background-color: #3498db;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.card_display button:hover {
+    background-color: #2980b9;
 }
 
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
-    padding: 20px; /* Optional padding for the card container */
+    padding: 20px;
 }
 
 .card {
     border: 1px solid #ccc;
-    padding: 10px;
-    background: #fff; /* Optional background color for the cards */
-}
-
-.edit-button,
-.delete-button {
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
-    margin-right: 5px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
 }
 
 .card.hovered {
