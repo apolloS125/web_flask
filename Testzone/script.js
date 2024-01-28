@@ -1,30 +1,7 @@
 var draggedElement;
 
 function addCard() {
-    var cardTitle = prompt("Enter card title:");
-    var cardContent = prompt("Enter card content:");
-
-    if (cardTitle !== null && cardContent !== null) {
-        var newCard = document.createElement("div");
-        newCard.className = "card";
-        newCard.innerHTML = "<h3>" + cardTitle + "</h3><p>" + cardContent + "</p>";
-
-        var editButton = createButton("Edit", "edit-button", function() {
-            editCard(newCard);
-        });
-
-        var deleteButton = createButton("Delete", "delete-button", function() {
-            deleteCard(newCard);
-        });
-
-        newCard.setAttribute("draggable", true);
-
-        newCard.appendChild(editButton);
-        newCard.appendChild(deleteButton);
-
-        var cardContainer = document.getElementById("cardContainer");
-        cardContainer.appendChild(newCard);
-    }
+    showPopup(null);  // Pass null since we are adding a new card
 }
 
 function createButton(text, className, clickHandler) {
@@ -43,13 +20,17 @@ function showPopup(card) {
 
     var titleInput = document.createElement("input");
     titleInput.type = "text";
-    titleInput.value = card.querySelector("h3").innerText;
+    titleInput.value = card ? card.querySelector("h3").innerText : "";
 
     var contentInput = document.createElement("textarea");
-    contentInput.value = card.querySelector("p").innerText;
+    contentInput.value = card ? card.querySelector("p").innerText : "";
 
     var saveButton = createButton("Save", "save-button", function() {
-        saveChanges(card, titleInput.value, contentInput.value);
+        if (card) {
+            saveChanges(card, titleInput.value, contentInput.value);
+        } else {
+            createCard(titleInput.value, contentInput.value);
+        }
         document.body.removeChild(popup);
     });
 
@@ -74,6 +55,28 @@ function editCard(card) {
 function saveChanges(card, newTitle, newContent) {
     card.querySelector("h3").innerText = newTitle;
     card.querySelector("p").innerText = newContent;
+}
+
+function createCard(cardTitle, cardContent) {
+    var newCard = document.createElement("div");
+    newCard.className = "card";
+    newCard.innerHTML = "<h3>" + cardTitle + "</h3><p>" + cardContent + "</p>";
+
+    var editButton = createButton("Edit", "edit-button", function() {
+        editCard(newCard);
+    });
+
+    var deleteButton = createButton("Delete", "delete-button", function() {
+        deleteCard(newCard);
+    });
+
+    newCard.setAttribute("draggable", true);
+
+    newCard.appendChild(editButton);
+    newCard.appendChild(deleteButton);
+
+    var cardContainer = document.getElementById("cardContainer");
+    cardContainer.appendChild(newCard);
 }
 
 function deleteCard(card) {
