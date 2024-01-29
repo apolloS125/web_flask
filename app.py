@@ -14,7 +14,7 @@ login_manager.init_app(app)
 db.init_app(app)
 
 @app.route('/')
-def index():
+def engigear():
     return render_template("engigear.html")
 
 
@@ -32,7 +32,8 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('index'))
+            return redirect(url_for('engigear'))
+
         else:
             flash('Invalid username or password', 'error')  
             return redirect(url_for('login'))
