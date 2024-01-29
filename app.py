@@ -32,7 +32,7 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('engigear'))
+            return redirect(url_for('blog'))
 
         else:
             flash('Invalid username or password', 'error')  
@@ -67,7 +67,7 @@ def register():
 
 @app.route('/blog')
 def blog():
-    return render_template("engigear.html")
+    return render_template("test.html")
 
 @app.route('/admin')
 def manage():
