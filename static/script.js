@@ -21,49 +21,57 @@ function showPopup(card, isViewOnly) {
     var titleInput = document.createElement("input");
     titleInput.type = "text";
     titleInput.value = card ? card.querySelector("h3").innerText : "";
-    titleInput.disabled = isViewOnly; // Disable input if in view-only mode
+    titleInput.readOnly = isViewOnly; // Make the title input read-only if it's a view-only popup
 
     var contentInput = document.createElement("textarea");
     contentInput.value = card ? card.querySelector("p").innerText : "";
-    contentInput.disabled = isViewOnly; // Disable textarea if in view-only mode
+    contentInput.readOnly = isViewOnly; // Make the content input read-only if it's a view-only popup
 
-    var saveButton = createButton("Save", "save-button", function() {
-        if (card) {
-            saveChanges(card, titleInput.value, contentInput.value);
-        } else {
-            createCard(titleInput.value, contentInput.value);
-        }
-        document.body.removeChild(popup);
-    });
+    form.appendChild(titleInput);
+    form.appendChild(contentInput);
 
-    var deleteButton = createButton("Delete", "delete-button", function() {
-        deleteCard(card);
-        document.body.removeChild(popup);
-    });
+    if (!isViewOnly) {
+        // Add save and delete buttons only for edit popup
+        var saveButton = createButton("Save", "save-button", function() {
+            if (card) {
+                saveChanges(card, titleInput.value, contentInput.value);
+            } else {
+                createCard(titleInput.value, contentInput.value);
+            }
+            document.body.removeChild(popup);
+        });
+
+        var deleteButton = createButton("Delete", "delete-button", function() {
+            deleteCard(card);
+            document.body.removeChild(popup);
+        });
+
+        form.appendChild(saveButton);
+        form.appendChild(deleteButton);
+    }
 
     var closeButton = createButton("Close", "close-button", function() {
         document.body.removeChild(popup);
     });
-
-    form.appendChild(titleInput);
-    form.appendChild(contentInput);
-    form.appendChild(saveButton);
-
-    if (card && !isViewOnly) {
-        form.appendChild(deleteButton);
-    }
 
     form.appendChild(closeButton);
 
     popup.appendChild(form);
 
     document.body.appendChild(popup);
+
+    // Add an event listener to close the popup when clicking outside of it
+    window.addEventListener("click", function(event) {
+        if (event.target === popup) {
+            document.body.removeChild(popup);
+        }
+    });
 }
 
 function createCard(cardTitle, cardContent) {
     var newCard = document.createElement("div");
     newCard.className = "card";
-    newCard.innerHTML = "<h3>" + cardTitle + "</h3><p>" + cardContent + "</p>";
+    newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
 
     var editButton = createButton("Edit", "edit-button", function() {
         editCard(newCard);
@@ -78,13 +86,9 @@ function createCard(cardTitle, cardContent) {
     newCard.appendChild(editButton);
     newCard.appendChild(deleteButton);
 
+    // Initially hide the buttons
     editButton.style.display = "none";
     deleteButton.style.display = "none";
-
-    // Add a click event listener to the card to show the popup for viewing only
-    newCard.addEventListener("click", function() {
-        showPopup(newCard, true);
-    });
 
     // Add a mouseover event listener to show the buttons when the card is hovered
     newCard.addEventListener("mouseover", function() {
