@@ -25,6 +25,7 @@ function showPopup(card) {
     var contentInput = document.createElement("textarea");
     contentInput.value = card ? card.querySelector("p").innerText : "";
 
+    //Ckeck card for create
     var saveButton = createButton("Save", "save-button", function() {
         if (card) {
             saveChanges(card, titleInput.value, contentInput.value);

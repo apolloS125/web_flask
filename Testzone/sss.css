@@ -88,10 +88,14 @@ ul.menu li a:hover {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
 }
 
 .card.hovered {
     border: 2px dashed blue;
+    box-shadow: none;
 }
 .popup {
     position: fixed;
