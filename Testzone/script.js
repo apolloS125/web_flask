@@ -1,8 +1,10 @@
 var draggedElement;
 
 function addCard() {
-    showPopup(null);  // Pass null since we are adding a new card
+    console.log("Add Card button clicked.");
+    showPopup(null, false);
 }
+
 
 function createButton(text, className, clickHandler) {
     var button = document.createElement("button");
@@ -12,7 +14,7 @@ function createButton(text, className, clickHandler) {
     return button;
 }
 
-function showPopup(card) {
+function showPopup(card, isViewOnly) {
     var popup = document.createElement("div");
     popup.className = "popup";
 
@@ -21,19 +23,11 @@ function showPopup(card) {
     var titleInput = document.createElement("input");
     titleInput.type = "text";
     titleInput.value = card ? card.querySelector("h3").innerText : "";
+    titleInput.readOnly = isViewOnly;
 
     var contentInput = document.createElement("textarea");
     contentInput.value = card ? card.querySelector("p").innerText : "";
-
-    //Ckeck card for create
-    var saveButton = createButton("Save", "save-button", function() {
-        if (card) {
-            saveChanges(card, titleInput.value, contentInput.value);
-        } else {
-            createCard(titleInput.value, contentInput.value);
-        }
-        document.body.removeChild(popup);
-    });
+    contentInput.readOnly = isViewOnly;
 
     var closeButton = createButton("Close", "close-button", function() {
         document.body.removeChild(popup);
@@ -41,7 +35,26 @@ function showPopup(card) {
 
     form.appendChild(titleInput);
     form.appendChild(contentInput);
-    form.appendChild(saveButton);
+
+    if (!isViewOnly) {
+        var saveButton = createButton("Save", "save-button", function() {
+            if (card) {
+                saveChanges(card, titleInput.value, contentInput.value);
+            } else {
+                createCard(titleInput.value, contentInput.value);
+            }
+            document.body.removeChild(popup);
+        });
+
+        var deleteButton = createButton("Delete", "delete-button", function() {
+            deleteCard(card);
+            document.body.removeChild(popup);
+        });
+
+        form.appendChild(saveButton);
+        form.appendChild(deleteButton);
+    }
+
     form.appendChild(closeButton);
 
     popup.appendChild(form);
@@ -50,7 +63,7 @@ function showPopup(card) {
 }
 
 function editCard(card) {
-    showPopup(card);
+    showPopup(card, false);
 }
 
 function saveChanges(card, newTitle, newContent) {
@@ -75,6 +88,15 @@ function createCard(cardTitle, cardContent) {
 
     newCard.appendChild(editButton);
     newCard.appendChild(deleteButton);
+
+    // Initially hide the buttons
+    editButton.style.display = "none";
+    deleteButton.style.display = "none";
+
+    // Add a click event listener to the card to show the popup for viewing only
+    newCard.addEventListener("click", function() {
+        showPopup(newCard, true);
+    });
 
     var cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);

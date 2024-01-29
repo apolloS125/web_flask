@@ -1,12 +1,14 @@
+/* sss.css */
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
 nav {
     background-color: #333;
     color: #fff;
-
 }
 
 .nav-con {
@@ -106,6 +108,7 @@ ul.menu li a:hover {
     border: 1px solid #ccc;
     padding: 20px;
     z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .popup h3 {
@@ -118,16 +121,11 @@ ul.menu li a:hover {
     text-decoration: underline;
     margin-top: 10px;
 }
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 1000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.delete-button {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+    margin-top: 10px;
 }
 
 .popup form {
@@ -139,6 +137,9 @@ ul.menu li a:hover {
 .popup textarea {
     margin-bottom: 10px;
     padding: 8px;
+    font-size: 14px; /* Add font size */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border-radius */
 }
 
 .popup button {
