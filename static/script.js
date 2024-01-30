@@ -35,6 +35,7 @@ function showPopup(card, isViewOnly) {
             if (card) {
                 saveChanges(card, titleInput.value, contentInput.value);
             } else {
+                saveCardToDatabase(titleInput.value, contentInput.value);
                 createCard(titleInput.value, contentInput.value);
             }
             document.body.removeChild(popup);
@@ -100,12 +101,11 @@ function createCard(cardTitle, cardContent) {
     var cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);
 
-    saveCardToDatabase(cardTitle, cardContent);
 }
 
 function editCard(card) {
     showPopup(card, false);
-}
+}   
 
 function saveChanges(card, newTitle, newContent) {
     card.querySelector("h3").innerText = newTitle;
@@ -165,6 +165,7 @@ function loadUserCards() {
     })
         .then(response => response.json())
         .then(cards => {
+            console.log(cards);
             for (const card of cards) {
                 createCard(card.title, card.content);
             }
