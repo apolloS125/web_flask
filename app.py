@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, get_flashed_messages
+from flask import Flask, render_template, request, redirect, url_for, flash, get_flashed_messages, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User
+from models import db, User, Card
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -37,7 +37,7 @@ def login():
     flash_messages = list(get_flashed_messages())
     return render_template('Login_card.html', flashed_messages=flash_messages)
 
-@app.route('/logout')  # New route for logout
+@app.route('/logout')
 @login_required
 def logout():
     logout_user()
@@ -69,12 +69,34 @@ def register():
     return render_template('register.html')
 
 @app.route('/blog')
+@login_required
 def blog():
     return render_template("test.html")
 
 @app.route('/admin')
 def manage():
     return 'Test route'
+
+@app.route('/save_card', methods=['POST'])
+@login_required
+def save_card():
+    data = request.get_json()
+
+    title = data.get('title')
+    content = data.get('content')
+
+    new_card = Card(title=title, content=content, user=current_user)
+    db.session.add(new_card)
+    db.session.commit()
+
+    return jsonify({"message": "Card saved successfully"})
+
+@app.route('/load_user_cards', methods=['GET'])
+@login_required
+def load_user_cards():
+    user_cards = Card.query.filter_by(user=current_user).all()
+    cards = [{'title': card.title, 'content': card.content} for card in user_cards]
+    return jsonify(cards)
 
 if __name__ == "__main__":
     with app.app_context():

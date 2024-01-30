@@ -21,18 +21,17 @@ function showPopup(card, isViewOnly) {
     var titleInput = document.createElement("input");
     titleInput.type = "text";
     titleInput.value = card ? card.querySelector("h3").innerText : "";
-    titleInput.readOnly = isViewOnly; // Make the title input read-only if it's a view-only popup
+    titleInput.readOnly = isViewOnly;
 
     var contentInput = document.createElement("textarea");
     contentInput.value = card ? card.querySelector("p").innerText : "";
-    contentInput.readOnly = isViewOnly; // Make the content input read-only if it's a view-only popup
+    contentInput.readOnly = isViewOnly;
 
     form.appendChild(titleInput);
     form.appendChild(contentInput);
 
     if (!isViewOnly) {
-        // Add save and delete buttons only for edit popup
-        var saveButton = createButton("Save", "save-button", function() {
+        var saveButton = createButton("Save", "save-button", function () {
             if (card) {
                 saveChanges(card, titleInput.value, contentInput.value);
             } else {
@@ -41,7 +40,7 @@ function showPopup(card, isViewOnly) {
             document.body.removeChild(popup);
         });
 
-        var deleteButton = createButton("Delete", "delete-button", function() {
+        var deleteButton = createButton("Delete", "delete-button", function () {
             deleteCard(card);
             document.body.removeChild(popup);
         });
@@ -50,7 +49,7 @@ function showPopup(card, isViewOnly) {
         form.appendChild(deleteButton);
     }
 
-    var closeButton = createButton("Close", "close-button", function() {
+    var closeButton = createButton("Close", "close-button", function () {
         document.body.removeChild(popup);
     });
 
@@ -60,8 +59,7 @@ function showPopup(card, isViewOnly) {
 
     document.body.appendChild(popup);
 
-    // Add an event listener to close the popup when clicking outside of it
-    window.addEventListener("click", function(event) {
+    window.addEventListener("click", function (event) {
         if (event.target === popup) {
             document.body.removeChild(popup);
         }
@@ -73,11 +71,11 @@ function createCard(cardTitle, cardContent) {
     newCard.className = "card";
     newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
 
-    var editButton = createButton("Edit", "edit-button", function() {
+    var editButton = createButton("Edit", "edit-button", function () {
         editCard(newCard);
     });
 
-    var deleteButton = createButton("Delete", "delete-button", function() {
+    var deleteButton = createButton("Delete", "delete-button", function () {
         deleteCard(newCard);
     });
 
@@ -86,24 +84,23 @@ function createCard(cardTitle, cardContent) {
     newCard.appendChild(editButton);
     newCard.appendChild(deleteButton);
 
-    // Initially hide the buttons
     editButton.style.display = "none";
     deleteButton.style.display = "none";
 
-    // Add a mouseover event listener to show the buttons when the card is hovered
-    newCard.addEventListener("mouseover", function() {
+    newCard.addEventListener("mouseover", function () {
         editButton.style.display = "inline-block";
         deleteButton.style.display = "inline-block";
     });
 
-    // Add a mouseout event listener to hide the buttons when the mouse leaves the card
-    newCard.addEventListener("mouseout", function() {
+    newCard.addEventListener("mouseout", function () {
         editButton.style.display = "none";
         deleteButton.style.display = "none";
     });
 
     var cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);
+
+    saveCardToDatabase(cardTitle, cardContent);
 }
 
 function editCard(card) {
@@ -113,6 +110,8 @@ function editCard(card) {
 function saveChanges(card, newTitle, newContent) {
     card.querySelector("h3").innerText = newTitle;
     card.querySelector("p").innerText = newContent;
+
+    saveCardToDatabase(newTitle, newContent);
 }
 
 function deleteCard(card) {
@@ -121,8 +120,61 @@ function deleteCard(card) {
     if (confirmDelete) {
         var cardContainer = document.getElementById("cardContainer");
         cardContainer.removeChild(card);
+
+        deleteCardFromDatabase(card.querySelector("h3").innerText);
     }
 }
+
+function saveCardToDatabase(title, content) {
+    fetch("/save_card", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            title: title,
+            content: content,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error("Error:", error));
+}
+
+function deleteCardFromDatabase(title) {
+    fetch("/delete_card", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            title: title,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error("Error:", error));
+}
+
+function loadUserCards() {
+    fetch("/load_user_cards", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(response => response.json())
+        .then(cards => {
+            for (const card of cards) {
+                createCard(card.title, card.content);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadUserCards();
+});
 
 document.addEventListener("dragstart", function (event) {
     draggedElement = event.target;
