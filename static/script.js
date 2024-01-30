@@ -33,7 +33,9 @@ function showPopup(card, isViewOnly) {
     if (!isViewOnly) {
         var saveButton = createButton("Save", "save-button", function () {
             if (card) {
-                saveChanges(card, titleInput.value, contentInput.value);
+                card.querySelector("h3").innerText = titleInput.value;
+                card.querySelector("p").innerText = contentInput.value;
+                editCardService(card.id, titleInput.value, contentInput.value)
             } else {
                 createCardService(titleInput.value, contentInput.value)
                 createCard(titleInput.value, contentInput.value);
@@ -103,14 +105,10 @@ function createCard(cardTitle, cardContent, cardId) {
     cardContainer.appendChild(newCard);
 }
 
+
 function editCard(card) {
     showPopup(card, false);
 }   
-
-function saveChanges(card, newTitle, newContent) {
-    card.querySelector("h3").innerText = newTitle;
-    card.querySelector("p").innerText = newContent;
-}
 
 function deleteCard(card) {
     var confirmDelete = confirm("Are you sure you want to delete this card?");

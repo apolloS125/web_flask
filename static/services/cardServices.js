@@ -40,6 +40,7 @@ function deleteCardService(id) {
         .catch(error => console.error("Error:", error));
 }
 function editCardService(id, updatedTitle, updatedContent) {
+    console.log( id,  updatedTitle, updatedContent );
     return fetch(`/cards/${id}`, {
         method: "PUT",
         headers: {
