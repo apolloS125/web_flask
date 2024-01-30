@@ -35,7 +35,7 @@ function showPopup(card, isViewOnly) {
             if (card) {
                 saveChanges(card, titleInput.value, contentInput.value);
             } else {
-                saveCardToDatabase(titleInput.value, contentInput.value);
+                createCardService(titleInput.value, contentInput.value)
                 createCard(titleInput.value, contentInput.value);
             }
             document.body.removeChild(popup);
@@ -67,8 +67,9 @@ function showPopup(card, isViewOnly) {
     });
 }
 
-function createCard(cardTitle, cardContent) {
+function createCard(cardTitle, cardContent, cardId) {
     var newCard = document.createElement("div");
+    newCard.id = cardId;
     newCard.className = "card";
     newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
 
@@ -100,7 +101,6 @@ function createCard(cardTitle, cardContent) {
 
     var cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);
-
 }
 
 function editCard(card) {
@@ -111,7 +111,6 @@ function saveChanges(card, newTitle, newContent) {
     card.querySelector("h3").innerText = newTitle;
     card.querySelector("p").innerText = newContent;
 
-    saveCardToDatabase(newTitle, newContent);
 }
 
 function deleteCard(card) {
@@ -120,61 +119,17 @@ function deleteCard(card) {
     if (confirmDelete) {
         var cardContainer = document.getElementById("cardContainer");
         cardContainer.removeChild(card);
-
-        deleteCardFromDatabase(card.querySelector("h3").innerText);
+        deleteCardService(card.id)
     }
 }
 
-function saveCardToDatabase(title, content) {
-    fetch("/save_card", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            title: title,
-            content: content,
-        }),
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error("Error:", error));
-}
 
-function deleteCardFromDatabase(title) {
-    fetch("/delete_card", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            title: title,
-        }),
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error("Error:", error));
-}
-
-function loadUserCards() {
-    fetch("/load_user_cards", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then(response => response.json())
-        .then(cards => {
-            console.log(cards);
-            for (const card of cards) {
-                createCard(card.title, card.content);
-            }
-        })
-        .catch(error => console.error("Error:", error));
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    loadUserCards();
+document.addEventListener("DOMContentLoaded", async function () {
+    getCardsService().then(cards => {
+        cards.forEach(card => {
+            createCard(card.title, card.content, card.id);
+        });
+    });
 });
 
 document.addEventListener("dragstart", function (event) {

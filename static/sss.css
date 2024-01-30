@@ -150,6 +150,7 @@ ul.menu li a:hover {
     font-size: 14px; /* Add font size */
     border: 1px solid #ccc; /* Add border */
     border-radius: 5px; /* Add border-radius */
+    text-wrap:  wrap;   /* Set text wrapping to normal (default value) instead of "off" */
 }
 
 .popup button {

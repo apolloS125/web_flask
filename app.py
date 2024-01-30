@@ -91,12 +91,47 @@ def save_card():
 
     return jsonify({"message": "Card saved successfully"})
 
-@app.route('/load_user_cards', methods=['GET'])
+@app.route('/cards', methods=['POST', 'GET'])
 @login_required
-def load_user_cards():
-    user_cards = Card.query.filter_by(user=current_user).all()
-    cards = [{'title': card.title, 'content': card.content} for card in user_cards]
-    return jsonify(cards)
+def card_create():
+    # create card
+    if request.method == 'POST':
+        data = request.get_json()
+
+        title = data.get('title')
+        content = data.get('content')
+
+        new_card = Card(title=title, content=content, user=current_user)
+        db.session.add(new_card)
+        db.session.commit()
+
+        return jsonify({"message": "Card saved successfully"})
+    elif request.method == 'GET':
+        user_cards = Card.query.filter_by(user=current_user).all()
+        cards = [{'title': card.title, 'content': card.content, 'id': card.id } for card in user_cards]
+        return jsonify(cards)
+    else :
+        return 'Method not allowed'
+
+@app.route('/cards/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@login_required
+def card(id):
+    card = Card.query.get_or_404(id)
+
+    if request.method == 'GET':
+        return jsonify({'title': card.title, 'content': card.content})
+    elif request.method == 'PUT':
+        data = request.get_json()
+
+        card.title = data.get('title')
+        card.content = data.get('content')
+
+        db.session.commit()
+        return jsonify({'message': 'Card updated successfully'})
+    elif request.method == 'DELETE':
+        db.session.delete(card)
+        db.session.commit()
+        return jsonify({'message': 'Card deleted successfully'})
 
 if __name__ == "__main__":
     with app.app_context():
