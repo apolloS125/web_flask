@@ -1,11 +1,11 @@
-var draggedElement;
+let draggedElement;
 
 function addCard() {
     showPopup(null, false);
 }
 
 function createButton(text, className, clickHandler) {
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.className = className;
     button.innerText = text;
     button.onclick = clickHandler;
@@ -13,17 +13,17 @@ function createButton(text, className, clickHandler) {
 }
 
 function showPopup(card, isViewOnly) {
-    var popup = document.createElement("div");
+    let popup = document.createElement("div");
     popup.className = "popup";
 
-    var form = document.createElement("form");
+    let form = document.createElement("form");
 
-    var titleInput = document.createElement("input");
+    let titleInput = document.createElement("input");
     titleInput.type = "text";
     titleInput.value = card ? card.querySelector("h3").innerText : "";
     titleInput.readOnly = isViewOnly;
 
-    var contentInput = document.createElement("textarea");
+    let contentInput = document.createElement("textarea");
     contentInput.value = card ? card.querySelector("p").innerText : "";
     contentInput.readOnly = isViewOnly;
 
@@ -31,17 +31,20 @@ function showPopup(card, isViewOnly) {
     form.appendChild(contentInput);
 
     if (!isViewOnly) {
-        var saveButton = createButton("Save", "save-button", function () {
+        let saveButton = createButton("Save", "save-button", function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
             if (card) {
                 saveChanges(card, titleInput.value, contentInput.value);
+                editCardService(card.id, titleInput.value, contentInput.value);
             } else {
                 createCardService(titleInput.value, contentInput.value)
-                createCard(titleInput.value, contentInput.value);
+                    .then(newCard => createCard(newCard.title, newCard.content, newCard.id));
             }
             document.body.removeChild(popup);
         });
 
-        var deleteButton = createButton("Delete", "delete-button", function () {
+        let deleteButton = createButton("Delete", "delete-button", function () {
             deleteCard(card);
             document.body.removeChild(popup);
         });
@@ -50,7 +53,7 @@ function showPopup(card, isViewOnly) {
         form.appendChild(deleteButton);
     }
 
-    var closeButton = createButton("Close", "close-button", function () {
+    let closeButton = createButton("Close", "close-button", function () {
         document.body.removeChild(popup);
     });
 
@@ -67,17 +70,19 @@ function showPopup(card, isViewOnly) {
     });
 }
 
+// Your existing functions
+
 function createCard(cardTitle, cardContent, cardId) {
-    var newCard = document.createElement("div");
+    let newCard = document.createElement("div");
     newCard.id = cardId;
     newCard.className = "card";
     newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
 
-    var editButton = createButton("Edit", "edit-button", function () {
+    let editButton = createButton("Edit", "edit-button", function () {
         editCard(newCard);
     });
 
-    var deleteButton = createButton("Delete", "delete-button", function () {
+    let deleteButton = createButton("Delete", "delete-button", function () {
         deleteCard(newCard);
     });
 
@@ -99,30 +104,28 @@ function createCard(cardTitle, cardContent, cardId) {
         deleteButton.style.display = "none";
     });
 
-    var cardContainer = document.getElementById("cardContainer");
+    let cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);
 }
 
 function editCard(card) {
     showPopup(card, false);
-}   
+}
 
 function saveChanges(card, newTitle, newContent) {
     card.querySelector("h3").innerText = newTitle;
     card.querySelector("p").innerText = newContent;
-
 }
 
 function deleteCard(card) {
-    var confirmDelete = confirm("Are you sure you want to delete this card?");
+    let confirmDelete = confirm("Are you sure you want to delete this card?");
 
     if (confirmDelete) {
-        var cardContainer = document.getElementById("cardContainer");
+        let cardContainer = document.getElementById("cardContainer");
         cardContainer.removeChild(card);
-        deleteCardService(card.id)
+        deleteCardService(card.id);
     }
 }
-
 
 document.addEventListener("DOMContentLoaded", async function () {
     getCardsService().then(cards => {
@@ -143,10 +146,10 @@ document.addEventListener("dragover", function (event) {
 document.addEventListener("drop", function (event) {
     event.preventDefault();
 
-    var dropTarget = event.target;
+    let dropTarget = event.target;
 
     if (dropTarget.className === "card") {
-        var parentContainer = dropTarget.parentNode;
+        let parentContainer = dropTarget.parentNode;
         parentContainer.insertBefore(draggedElement, dropTarget);
     }
 });

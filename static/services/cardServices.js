@@ -39,3 +39,18 @@ function deleteCardService(id) {
         .then(data => console.log(data))
         .catch(error => console.error("Error:", error));
 }
+function editCardService(id, updatedTitle, updatedContent) {
+    return fetch(`/cards/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            title: updatedTitle,
+            content: updatedContent,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error("Error:", error));
+}
