@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var editProfileForm = document.querySelector('.edit-profile form');
+    let editProfileForm = document.querySelector('.edit-profile form');
 
     editProfileForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        var formData = new FormData(editProfileForm);
-
-        // Add CSRF token to headers
-        var headers = new Headers();
+        let formData = new FormData(editProfileForm);
+        let headers = new Headers();
         headers.append('X-CSRFToken', formData.get('csrf_token'));
 
         fetch('/update_profile', {
