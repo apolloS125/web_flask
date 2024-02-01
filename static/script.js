@@ -69,11 +69,11 @@ function showPopup(card, isViewOnly) {
         }
     });
 }
-
+//create card on page
 function createCard(cardTitle, cardContent, cardId) {
     let newCard = document.createElement("div");
     newCard.id = cardId;
-    console.log(cardId)
+    console.log(cardId) 
     newCard.className = "card";
     newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
 

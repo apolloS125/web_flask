@@ -77,6 +77,11 @@ def blog():
 def manage():
     return 'Test route'
 
+@app.route('/edit')
+@login_required
+def edit():
+    return render_template("profile.html")
+
 @app.route('/save_card', methods=['POST'])
 @login_required
 def save_card():
@@ -133,6 +138,29 @@ def card(id):
         db.session.delete(card)
         db.session.commit()
         return jsonify({'message': 'Card deleted successfully'})
+
+@app.route('/update_profile', methods=['PUT'])
+@login_required
+def update_profile():
+    if request.method == 'PUT':
+        data = request.form
+
+        new_name = data.get('name')
+        new_password = data.get('password')
+
+        # Update name if provided
+        if new_name:
+            current_user.name = new_name
+
+        # Update password if provided
+        if new_password:
+            current_user.password = generate_password_hash(new_password)
+
+        db.session.commit()
+
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False, "message": "Invalid request method"})
 
 if __name__ == "__main__":
     with app.app_context():

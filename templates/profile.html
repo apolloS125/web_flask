@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-con">
+                <div class="logo">
+                    <h3>ENGIGEAR</h3>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <div class="dropdown">
+                        <span>{{ current_user.name }}</span>
+                        <div class="dropdown-content">
+                            <a href="#">Profile</a>
+                            <a href="{{ url_for('logout') }}">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="edit-profile">
+                <h1>Edit Profile</h1>
+                <!-- Your edit profile form goes here -->
+                <form>
+                    <label for="name">New Name:</label>
+                    <input type="text" id="name" name="name">
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
+
+                    <label for="confirm-password">New Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password">
+
+                    <!-- Add more fields as needed -->
+
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='update.js') }}"></script>
+</body>
+</html>

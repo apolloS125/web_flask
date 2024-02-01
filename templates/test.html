@@ -20,7 +20,13 @@
                         <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
                         <li><a href="#">Service</a></li>
                         <li><a href="#">Contact</a></li>
-                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">{{ current_user.name }}</a>
+                            <div class="dropdown-content">
+                                <a href="{{ url_for('edit') }}">Profile</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
                     </ul>
                 {% else %}
                     <ul class="menu">
