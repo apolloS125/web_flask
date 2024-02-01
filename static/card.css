@@ -115,6 +115,10 @@ ul.menu li a:hover {
     text-decoration: underline;
     size: 16px;
 }
+.card p{
+    word-break: break-all;
+    white-space: normal;
+}
 
 .card h3:hover {
     cursor: pointer;

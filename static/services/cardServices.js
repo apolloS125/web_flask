@@ -10,7 +10,10 @@ function createCardService(title, content) {
         }),
     })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            return data;
+        })
+
         .catch(error => console.error("Error:", error));
 }
 

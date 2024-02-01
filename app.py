@@ -47,7 +47,7 @@ def logout():
 def register():
     if request.method == 'POST':
         # รับข้อมูลจากฟอร์ม
-        name = request.form.get('name')
+        name = request.form.get('username')
         username = request.form.get('username')
         password = request.form.get('password')
 
@@ -104,8 +104,9 @@ def card_create():
         new_card = Card(title=title, content=content, user=current_user)
         db.session.add(new_card)
         db.session.commit()
+        #print(new_card.id)
 
-        return jsonify({"message": "Card saved successfully"})
+        return jsonify({"id": new_card.id,'title':new_card.title,'content':new_card.content})
     elif request.method == 'GET':
         user_cards = Card.query.filter_by(user=current_user).all()
         cards = [{'title': card.title, 'content': card.content, 'id': card.id } for card in user_cards]
@@ -117,12 +118,12 @@ def card_create():
 @login_required
 def card(id):
     card = Card.query.get_or_404(id)
-
+    #print(request.method , id)
     if request.method == 'GET':
         return jsonify({'title': card.title, 'content': card.content})
     elif request.method == 'PUT':
         data = request.get_json()
-
+        #print(data)
         card.title = data.get('title')
         card.content = data.get('content')
 

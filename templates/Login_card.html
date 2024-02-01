@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <nav>
         <div class="container">
@@ -16,14 +18,14 @@
                 </div>
                 <ul class="menu">
                     {% if current_user.is_authenticated %}
-                        <li><a href="{{ url_for('blog') }}">Home</a></li>
-                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('blog') }}">Home</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
-                        <li><a href="{{ url_for('blog') }}">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('blog') }}">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -31,21 +33,22 @@
     </nav>
     <div class="center">
         <h1>Login</h1>
-        <form id="formAuthentication" class="mb-3" action="{{ url_for('login') }}" method="POST">
+        <form method="POST">
             <div class="txt_field">
-                <input type="text" required id = "username" name = "username">
+                <input type="text" required id="username" name="username">
                 <span></span>
                 <label>Username</label>
             </div>
             <div class="txt_field">
-                <input type="password" required id = "password" name="password">
+                <input type="password" required id="password" name="password">
                 <span></span>
                 <label>Password</label>
             </div>
             <input type="submit" value="submit" id="ntp"></input>
-            <a class="register-btn"  href="{{ url_for('register') }}">Register</a>
+            <a class="register-btn" href="{{ url_for('register') }}">Register</a>
         </form>
     </div>
 
 </body>
+
 </html>
