@@ -12,6 +12,28 @@ function createButton(text, className, clickHandler) {
     return button;
 }
 
+//for createnewline
+createNewline = () => {
+    let newline = document.createElement("p");
+    newline.className = "content";
+    document.body.appendChild(newline);
+};
+
+function createButton(text, className, clickHandler) {
+    let button = document.createElement("button");
+    button.className = className;
+    button.innerText = text;
+    button.onclick = clickHandler;
+    return button;
+}
+
+//for createnewline
+createNewline = () => {
+    let newline = document.createElement("p");
+    newline.className = "content";
+    document.body.appendChild(newline);
+};
+
 function showPopup(card, isViewOnly) {
     let popup = document.createElement("div");
     popup.className = "popup";
@@ -26,6 +48,13 @@ function showPopup(card, isViewOnly) {
     let contentInput = document.createElement("textarea");
     contentInput.value = card ? card.querySelector("p").innerText : "";
     contentInput.readOnly = isViewOnly;
+
+    // Add event listener for Enter key press in contentInput
+    contentInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            createNewline();
+        }
+    });
 
     form.appendChild(titleInput);
     form.appendChild(contentInput);
@@ -69,6 +98,7 @@ function showPopup(card, isViewOnly) {
         }
     });
 }
+
 //create card on page
 function createCard(cardTitle, cardContent, cardId) {
     let newCard = document.createElement("div");
