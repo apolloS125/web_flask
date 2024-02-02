@@ -148,11 +148,9 @@ def update_profile():
         new_name = data.get('name')
         new_password = data.get('password')
 
-        # Update name if provided
         if new_name:
             current_user.name = new_name
 
-        # Update password if provided
         if new_password:
             current_user.password = generate_password_hash(new_password)
 

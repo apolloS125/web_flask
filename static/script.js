@@ -12,13 +12,6 @@ function createButton(text, className, clickHandler) {
     return button;
 }
 
-//for createnewline
-createNewline = () => {
-    let newline = document.createElement("p");
-    newline.className = "content";
-    document.body.appendChild(newline);
-};
-
 function createButton(text, className, clickHandler) {
     let button = document.createElement("button");
     button.className = className;
@@ -26,13 +19,6 @@ function createButton(text, className, clickHandler) {
     button.onclick = clickHandler;
     return button;
 }
-
-//for createnewline
-createNewline = () => {
-    let newline = document.createElement("p");
-    newline.className = "content";
-    document.body.appendChild(newline);
-};
 
 function showPopup(card, isViewOnly) {
     let popup = document.createElement("div");
@@ -51,9 +37,6 @@ function showPopup(card, isViewOnly) {
 
     // Add event listener for Enter key press in contentInput
     contentInput.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            createNewline();
-        }
     });
 
     form.appendChild(titleInput);
@@ -61,6 +44,10 @@ function showPopup(card, isViewOnly) {
 
     if (!isViewOnly) {
         let saveButton = createButton("Save", "save-button", function () {
+            console.log(//for check data
+                'save',
+                contentInput.value
+            )
             if (card) {
                 card.querySelector("h3").innerText = titleInput.value;
                 card.querySelector("p").innerText = contentInput.value;
@@ -105,7 +92,9 @@ function createCard(cardTitle, cardContent, cardId) {
     newCard.id = cardId;
     console.log(cardId) 
     newCard.className = "card";
-    newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
+    const cardHTML = cardContent .split('\n').join('<br/>')
+    // newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
+    newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardHTML + "</p>";
 
     let editButton = createButton("Edit", "edit-button", function () {
         editCard(newCard);
@@ -154,7 +143,10 @@ function deleteCard(card) {
 
 document.addEventListener("DOMContentLoaded", async function () {
     getCardsService().then(cards => {
+
+
         cards.forEach(card => {
+            console.log( 'content' , card.content ) //for debug content text
             createCard(card.title, card.content, card.id);
         });
     });
