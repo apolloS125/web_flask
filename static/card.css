@@ -90,6 +90,7 @@ ul.menu li a:hover {
 
 /* Style individual cards */
 .card {
+    position: relative;
     border: 1px solid #ccc;
     padding: 20px;
     background: #fff;
@@ -104,6 +105,20 @@ ul.menu li a:hover {
     box-shadow: none;
 }
 
+.card .card-buttons {
+    position: absolute;
+    top: 5px; /* Adjusted top position */
+    right: 5px; /* Adjusted right position */
+    display: flex;
+    gap: 10px;
+}
+
+.card .card-buttons button {
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
 /* Style the updated popup */
 .popup {
     position: fixed;
@@ -118,12 +133,15 @@ ul.menu li a:hover {
     width: 400px;
     max-width: 100%;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .popup h3 {
     margin-bottom: 15px;
     font-size: 18px;
     color: #333;
+    align-self: center; /* Center the heading */
 }
 
 .popup form {
@@ -145,14 +163,17 @@ ul.menu li a:hover {
     color: #fff;
     background-color: #3498db;
     border: none;
-    padding: 12px;
+    padding: 12px 20px; /* Add more horizontal padding for a better look */
     font-size: 14px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    align-self: flex-end; /* Align buttons to the right */
+    margin-top: 10px; /* Add a bit of top margin for separation */
 }
 
 .popup button:hover {
     background-color: #2980b9;
+    transform: scale(1.05); /* Add a subtle scale effect on hover */
 }
 
 .close-button {
@@ -164,6 +185,10 @@ ul.menu li a:hover {
 
 .close-button:hover {
     color: #21618C;
+}
+
+.edit-button {
+    float: right;
 }
 
 .card_display h1:hover {
@@ -180,6 +205,7 @@ ul.menu li a:hover {
     cursor: pointer;
     text-decoration: underline;
 }
+
 /* Dropdown styles */
 .dropdown {
     position: relative;

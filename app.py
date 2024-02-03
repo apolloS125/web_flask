@@ -50,7 +50,7 @@ def register():
         name = request.form.get('username')
         username = request.form.get('username')
         password = request.form.get('password')
-
+        #email = request.form.get('email')
         # Ensure username is not empty
         if not username:
             flash('Username is required', 'error')

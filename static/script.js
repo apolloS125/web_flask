@@ -59,14 +59,7 @@ function showPopup(card, isViewOnly) {
             }
             document.body.removeChild(popup);
         });
-
-        let deleteButton = createButton("Delete", "delete-button", function () {
-            deleteCard(card);
-            document.body.removeChild(popup);
-        });
-
         form.appendChild(saveButton);
-        form.appendChild(deleteButton);
     }
 
     let closeButton = createButton("Close", "close-button", function () {
