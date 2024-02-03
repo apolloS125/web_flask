@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Display</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='card.css') }}">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
     <nav>
@@ -41,19 +41,22 @@
             </div>
         </div>
     </nav>
-
     <div class="container">
         <div class="main-content">
             <div class="card_display">
-                <h1>Courses</h1>
-                <button onclick="addCard()">Add Card</button>
+                <h1>Hello {{ current_user.name }}</h1>
+                <button onclick="showPopup()">Add Card</button>
             </div>
         </div>
-        <div id="cardContainer" class="card-container">
-            <!-- Cards will be added here -->
+    </div>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Enter Card Details</h2>
+            <input type="text" id="cardTitle" placeholder="Enter title">
+            <button onclick="saveCard()">Save</button>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='services/cardServices.js') }}"></script>
-    <script src="{{ url_for('static', filename='card.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
 </html>

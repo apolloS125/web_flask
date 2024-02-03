@@ -12,8 +12,16 @@ class User(UserMixin, db.Model):
     # Relationship with cards
     cards = db.relationship('Card', backref='user', lazy=True)
 
+    # Relationship with dashboards
+    dashboards = db.relationship('Dashboard', backref='user', lazy=True)
+
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+class Dashboard(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
