@@ -48,11 +48,14 @@
                 <button onclick="showPopup()">Add Card</button>
             </div>
         </div>
+        <div id="cardContainer" class="card-container">
+            <!-- Cards will be added here -->
+        </div>
     </div>
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
-            <h2>Enter Card Details</h2>
+            <h2>Enter Card Title</h2>
             <input type="text" id="cardTitle" placeholder="Enter title">
             <button onclick="saveCard()">Save</button>
         </div>

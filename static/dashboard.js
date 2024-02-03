@@ -1,53 +1,31 @@
-let draggedElement;
+// dashboard.js
 
-function addCard() {
-    const cardContainer = document.getElementById("cardContainer");
-    const newCard = createCardElement("New Card", "Card content goes here");
+function showPopup() {
+    let popup = document.getElementById("popup");
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    let popup = document.getElementById("popup");
+    popup.style.display = "none";
+}
+
+function saveCard() {
+    let titleInput = document.getElementById("cardTitle");
+
+    // Implement your logic for saving the card details here
+    console.log("Title: ", titleInput.value);
+
+    createCard(titleInput.value);
+
+    closePopup();
+}
+
+function createCard(cardTitle) {
+    let newCard = document.createElement("div");
+    newCard.className = "card";
+    newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3>";
+
+    let cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);
 }
-
-function createCardElement(title, content) {
-    const newCard = document.createElement("div");
-    newCard.className = "card";
-    
-    const titleElement = document.createElement("h3");
-    titleElement.innerText = title;
-
-    const contentElement = document.createElement("p");
-    contentElement.innerText = content;
-
-    newCard.appendChild(titleElement);
-    newCard.appendChild(contentElement);
-
-    // Add event listeners for card actions (e.g., click, drag, etc.)
-    newCard.addEventListener("click", function () {
-        // Add your action when clicking on a card
-        console.log("Card clicked:", title);
-    });
-
-    newCard.setAttribute("draggable", true);
-
-    newCard.addEventListener("dragstart", function (event) {
-        draggedElement = event.target;
-    });
-
-    newCard.addEventListener("dragover", function (event) {
-        event.preventDefault();
-    });
-
-    newCard.addEventListener("drop", function (event) {
-        event.preventDefault();
-        const dropTarget = event.target;
-
-        if (dropTarget.className === "card") {
-            const parentContainer = dropTarget.parentNode;
-            parentContainer.insertBefore(draggedElement, dropTarget);
-        }
-    });
-
-    return newCard;
-}
-
-// You can dynamically load existing cards here using API calls or any other method
-// Example: const existingCard = createCardElement("Existing Card", "Content");
-// document.getElementById("cardContainer").appendChild(existingCard);
