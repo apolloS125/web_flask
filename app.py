@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, get_flashed_messages, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Card, Dashboard  
+from models import db, User, Card
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -30,7 +30,7 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('blog'))
         else:
             flash('Invalid username or password', 'error')  
             return redirect(url_for('login'))
@@ -50,7 +50,7 @@ def register():
         name = request.form.get('username')
         username = request.form.get('username')
         password = request.form.get('password')
-
+        #email = request.form.get('email')
         # Ensure username is not empty
         if not username:
             flash('Username is required', 'error')
@@ -82,13 +82,6 @@ def manage():
 def edit():
     return render_template("profile.html")
 
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    # Fetch user-specific dashboards
-    user_dashboards = Dashboard.query.filter_by(user=current_user).all()
-    return render_template("dashboard.html", user_dashboards=user_dashboards)
-
 @app.route('/save_card', methods=['POST'])
 @login_required
 def save_card():
@@ -96,9 +89,8 @@ def save_card():
 
     title = data.get('title')
     content = data.get('content')
-    dashboard_id = data.get('dashboard_id')  # Get the dashboard_id from the request
 
-    new_card = Card(title=title, content=content, dashboard_id=dashboard_id)
+    new_card = Card(title=title, content=content, user=current_user)
     db.session.add(new_card)
     db.session.commit()
 
@@ -113,18 +105,18 @@ def card_create():
 
         title = data.get('title')
         content = data.get('content')
-        dashboard_id = data.get('dashboard_id')  # Get the dashboard_id from the request
 
-        new_card = Card(title=title, content=content, dashboard_id=dashboard_id)
+        new_card = Card(title=title, content=content, user=current_user)
         db.session.add(new_card)
         db.session.commit()
+        #print(new_card.id)
 
-        return jsonify({"id": new_card.id, 'title': new_card.title, 'content': new_card.content})
+        return jsonify({"id": new_card.id,'title':new_card.title,'content':new_card.content})
     elif request.method == 'GET':
         user_cards = Card.query.filter_by(user=current_user).all()
-        cards = [{'title': card.title, 'content': card.content, 'id': card.id} for card in user_cards]
+        cards = [{'title': card.title, 'content': card.content, 'id': card.id } for card in user_cards]
         return jsonify(cards)
-    else:
+    else :
         return 'Method not allowed'
 
 @app.route('/cards/<int:id>', methods=['GET', 'PUT', 'DELETE'])
