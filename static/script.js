@@ -152,26 +152,17 @@ document.addEventListener("drop", function (event) {
         parentContainer.insertBefore(draggedElement, dropTarget);
     }
 });
-
-// Function to filter cards by title
 function search() {
-    // Get the search input value
     let searchInput = document.getElementById("searchInput").value.toLowerCase();
-
-    // Get all cards
     let cards = document.getElementsByClassName("card");
 
-    // Loop through each card
     for (let i = 0; i < cards.length; i++) {
-        // Get the title of the current card
-        let title = cards[i].querySelector("h3").innerText.toLowerCase();
+        let title = cards[i].querySelector("h3").innerText.toLowerCase();//like .lower() in python medthod
 
         // Check if the title contains the search input value
         if (title.includes(searchInput)) {
-            // Show the card if it matches the search
             cards[i].style.display = "block";
         } else {
-            // Hide the card if it doesn't match the search
             cards[i].style.display = "none";
         }
     }
