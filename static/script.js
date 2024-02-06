@@ -12,14 +12,6 @@ function createButton(text, className, clickHandler) {
     return button;
 }
 
-function createButton(text, className, clickHandler) {
-    let button = document.createElement("button");
-    button.className = className;
-    button.innerText = text;
-    button.onclick = clickHandler;
-    return button;
-}
-
 function showPopup(card, isViewOnly) {
     let popup = document.createElement("div");
     popup.className = "popup";
@@ -83,9 +75,9 @@ function showPopup(card, isViewOnly) {
 function createCard(cardTitle, cardContent, cardId) {
     let newCard = document.createElement("div");
     newCard.id = cardId;
-    console.log(cardId) 
+    console.log(cardId)
     newCard.className = "card";
-    const cardHTML = cardContent .split('\n').join('<br/>')
+    const cardHTML = cardContent.split('\n').join('<br/>')
     // newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
     newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardHTML + "</p>";
 
@@ -119,7 +111,6 @@ function createCard(cardTitle, cardContent, cardId) {
     cardContainer.appendChild(newCard);
 }
 
-
 function editCard(card) {
     showPopup(card, false);
 }
@@ -136,10 +127,8 @@ function deleteCard(card) {
 
 document.addEventListener("DOMContentLoaded", async function () {
     getCardsService().then(cards => {
-
-
         cards.forEach(card => {
-            console.log( 'content' , card.content ) //for debug content text
+            console.log('content', card.content) //for debug content text
             createCard(card.title, card.content, card.id);
         });
     });
@@ -163,3 +152,37 @@ document.addEventListener("drop", function (event) {
         parentContainer.insertBefore(draggedElement, dropTarget);
     }
 });
+
+// Function to filter cards by title
+function search() {
+    // Get the search input value
+    let searchInput = document.getElementById("searchInput").value.toLowerCase();
+
+    // Get all cards
+    let cards = document.getElementsByClassName("card");
+
+    // Loop through each card
+    for (let i = 0; i < cards.length; i++) {
+        // Get the title of the current card
+        let title = cards[i].querySelector("h3").innerText.toLowerCase();
+
+        // Check if the title contains the search input value
+        if (title.includes(searchInput)) {
+            // Show the card if it matches the search
+            cards[i].style.display = "block";
+        } else {
+            // Hide the card if it doesn't match the search
+            cards[i].style.display = "none";
+        }
+    }
+}
+
+// Function to clear search
+function clearSearch() {
+    document.getElementById("searchInput").value = "";
+    // Show all cards
+    let cards = document.getElementsByClassName("card");
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].style.display = "block";
+    }
+}
