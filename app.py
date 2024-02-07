@@ -77,6 +77,10 @@ def blog():
 def manage():
     return 'Test route'
 
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
+
 @app.route('/edit')
 @login_required
 def edit():
