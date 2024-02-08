@@ -86,6 +86,10 @@ def contact():
 def edit():
     return render_template("profile.html")
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/save_card', methods=['POST'])
 @login_required
 def save_card():

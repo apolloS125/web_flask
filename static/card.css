@@ -39,11 +39,14 @@ ul.menu li a:hover {
     color: yellow;
     transition: 0.5s;
 }
+
 /* Search bar */
 .search-bar {
     position: absolute;
-    left: 80%;
-    transform: translateX(-50%);
+    right: 20px;
+    top: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .search-bar input[type="text"] {
@@ -51,6 +54,7 @@ ul.menu li a:hover {
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    margin-right: 10px;
 }
 
 .search-bar button {
@@ -61,7 +65,10 @@ ul.menu li a:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+}
+
+.search-bar button:hover {
+    background-color: #2980b9;
 }
 
 /* Style the container */
