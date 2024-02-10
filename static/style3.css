@@ -10,38 +10,46 @@ body {
 nav {
     background-color: #333;
     color: #fff;
-
 }
 
+/* Style the navigation container */
 .nav-con {
     display: flex;
     justify-content: space-between;
-    height: 80px;
     align-items: center;
+    height: 80px;
     margin-left: 9rem;
     margin-right: 9rem;
 }
-
+.nav-con .logo h3 a {
+    color: #fff;
+    text-decoration: none;
+}
+/* Style the menu list */
 ul.menu {
     display: flex;
     list-style: none;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
 }
 
+/* Style the individual menu items */
 ul.menu li {
     margin: 0 1rem;
 }
 
+/* Style the links within the menu items */
 ul.menu li a {
     color: #fff;
     text-decoration: none;
     font-size: 12pt;
 }
 
+/* Change link color on hover */
 ul.menu li a:hover {
     color: yellow;
-    transition: .5s;
+    transition: color 0.5s;
 }
-
 .center {
     position: absolute;
     top: 50%;
