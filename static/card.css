@@ -43,10 +43,11 @@ ul.menu li a:hover {
 /* Search bar */
 .search-bar {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 20px; /* Adjust right position */
+    top: 20px; /* Adjust top position */
     display: flex;
     align-items: center;
+    z-index: 1000; /* Ensure search bar appears above other content */
 }
 
 .search-bar input[type="text"] {
@@ -80,9 +81,10 @@ ul.menu li a:hover {
 .main-content {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
+    position: relative; /* Added position relative */
 }
 
 /* Style the card display */
@@ -111,7 +113,6 @@ ul.menu li a:hover {
 .card_display button:hover {
     background-color: #2980b9;
 }
-
 /* Style the card container */
 .card-container {
     display: grid;

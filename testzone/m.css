@@ -41,17 +41,28 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
-.card .instagram {
+.card .instagram,
+.card:nth-child(2) .twitter,
+.card:nth-child(3) .tiktok,
+.card:nth-child(4) .facebook,
+.card:nth-child(6) .discord,
+.card:nth-child(7) .github,
+.card:nth-child(8) .telegram,
+.card:nth-child(9) .youtube {
     opacity: 0;
     transition: .2s ease-in-out;
 }
 
-.card:nth-child(2) .twitter {
-    opacity: 0;
-    transition: .2s ease-in-out;
+.card:nth-child(3),
+.card:nth-child(4),
+.card:nth-child(5),
+.card:nth-child(6),
+.card:nth-child(7),
+.card:nth-child(8),
+.card:nth-child(9) {
+    border-radius: 0px;
 }
 
 .card:nth-child(3) {
@@ -59,63 +70,14 @@ body {
     border-top-left-radius: 0px;
 }
 
-.card:nth-child(3) .tiktok {
-    opacity: 0;
-    transition: .2s ease-in-out;
-}
-
-.card:nth-child(4) {
-    border-radius: 0px;
-}
-
-.card:nth-child(4) .facebook {
-    opacity: 0;
-    transition: .2s ease-in-out;
-}
-
-.card:nth-child(5) {
-    border-radius: 0px;
-}
-
-.card:nth-child(6) {
-    border-radius: 0px;
-}
-
-.card:nth-child(6) .discord {
-    opacity: 0;
-    transition: .2s ease-in-out;
-    fill: #8c9eff;
-}
-
 .card:nth-child(7) {
     border-bottom-left-radius: 10px;
     border-top-left-radius: 0px;
 }
 
-.card:nth-child(7) .github {
-    opacity: 0;
-    transition: .2s ease-in-out;
-    fill: black;
-}
-
-.card:nth-child(8) {
-    border-radius: 0px;
-}
-
-.card:nth-child(8) .telegram {
-    opacity: 0;
-    transition: .2s ease-in-out;
-    fill: #29b6f6;
-}
-
 .card:nth-child(9) {
     border-bottom-right-radius: 10px;
     border-top-left-radius: 0px;
-}
-
-.card:nth-child(9) .youtube {
-    opacity: 0;
-    transition: .2s ease-in-out;
 }
 
 .main:hover {
@@ -163,7 +125,6 @@ body {
     background-color: #03A9F4;
 }
 
-
 .card:nth-child(3):hover {
     background-color: #ffb5d2;
 }
@@ -172,12 +133,10 @@ body {
     background-color: #7baaf0;
 }
 
-
 .card:nth-child(5):hover {
     animation: backgroundIMG .1s;
     animation-fill-mode: forwards;
 }
-
 
 @keyframes backgroundIMG {
     100% {
@@ -196,7 +155,6 @@ body {
 .card:nth-child(8):hover {
     background-color: #6fc5ed;
 }
-
 
 .card:nth-child(9):hover {
     background-color: rgb(255, 69, 0);
