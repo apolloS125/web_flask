@@ -11,6 +11,41 @@
 </head>
 
 <body>
+    <nav>
+        <div class="container">
+            <div class="nav-con">
+                <div class="logo">
+                    <h3><a href="{{ url_for('engigear') }}">ENGIGEAR</a></h3>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">{{ current_user.name }}</a>
+                            <div class="dropdown-content">
+                                <a href="{{ url_for('edit') }}">Profile</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
     <div class="main">
         <div class="card">
             <span class="instagram"><i class="fab fa-instagram"></i></span>

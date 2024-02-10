@@ -1,13 +1,60 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
+/* Global styles */
 body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
+/* Navbar styles */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Ensure it stays on top */
+    background-color: #333;
+    color: #fff;
+}
+
+.nav-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 9rem; /* Adjust padding instead of margin */
+}
+
+.nav-con .logo h3 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Menu styles */
+ul.menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.menu li {
+    margin: 0 1rem;
+}
+
+ul.menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12pt;
+}
+
+ul.menu li a:hover {
+    color: yellow;
+    transition: color 0.5s;
+}
+
+/* Main content styles */
 .main_back {
     position: absolute;
     border-radius: 10px;
@@ -15,8 +62,8 @@ body {
     width: 11em;
     height: 11em;
     background: linear-gradient(270deg, #03a9f4, #cc39a4, #ffb5d2);
-    z-index: -2;
-    box-shadow: inset 0px 0px 180px 5px #ffffff;
+    z-index: -2; 
+    box-shadow: inset 0px 0px 180px 5px #ffffff; 
 }
 
 .main {
@@ -26,6 +73,10 @@ body {
     align-items: center;
     justify-content: center;
     z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .card {
@@ -41,7 +92,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .card .instagram {
@@ -118,6 +168,7 @@ body {
     transition: .2s ease-in-out;
 }
 
+/* Hover styles */
 .main:hover {
     width: 14em;
     cursor: pointer;
@@ -155,6 +206,7 @@ body {
     opacity: 1;
 }
 
+/* Card hover styles */
 .card:nth-child(1):hover {
     background-color: #cc39a4;
 }
@@ -162,7 +214,6 @@ body {
 .card:nth-child(2):hover {
     background-color: #03A9F4;
 }
-
 
 .card:nth-child(3):hover {
     background-color: #ffb5d2;
@@ -172,17 +223,9 @@ body {
     background-color: #7baaf0;
 }
 
-
 .card:nth-child(5):hover {
     animation: backgroundIMG .1s;
     animation-fill-mode: forwards;
-}
-
-
-@keyframes backgroundIMG {
-    100% {
-        background-image: linear-gradient(#2096a3, #088981, #00DDEB);
-    }
 }
 
 .card:nth-child(6):hover {
@@ -197,7 +240,6 @@ body {
     background-color: #6fc5ed;
 }
 
-
 .card:nth-child(9):hover {
     background-color: rgb(255, 69, 0);
 }
@@ -210,6 +252,7 @@ body {
     fill: white;
 }
 
+/* Text styles */
 .text {
     position: absolute;
     font-size: 0.7em;
@@ -219,4 +262,34 @@ body {
     font-weight: bold;
     letter-spacing: 0.33em;
     z-index: 3;
+}
+
+/* Keyframe animation */
+@keyframes backgroundIMG {
+    100% {
+        background-image: linear-gradient(#2096a3, #088981, #00DDEB);
+    }
+}
+.dropdown-content {
+    display: none; /* Hide the dropdown content by default */
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Show the dropdown content when hovering over the dropdown */
 }
