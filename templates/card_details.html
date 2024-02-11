@@ -3,10 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='card_detail.css') }}">
     <title>Card Details</title>
 </head>
 <body>
-    <h1>Title is : {{ card.title }}</h1>
-    <p>Content is : {{ card.content }}</p>
+    <nav>
+        <div class="container">
+            <div class="nav-con">
+                <div class="logo">
+                    <h3><a href="{{ url_for('engigear') }}">ENGIGEAR</a></h3>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Task</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="{{ url_for('FAQ') }}">FAQ</a></li>
+                        <li><a href="{{ url_for('service') }}">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">{{ current_user.name }}</a>
+                            <div class="dropdown-content">
+                                <a href="{{ url_for('edit') }}">Profile</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Task</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="{{ url_for('FAQ') }}">FAQ</a></li>
+                        <li><a href="{{ url_for('service') }}">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="containers">
+        <h1>Card Details</h1>
+        <h2>Title : {{ card.title }}</h2>
+        <p>Content : {{ card.content }}</p>
+    </div>
 </body>
 </html>
