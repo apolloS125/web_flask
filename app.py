@@ -46,11 +46,11 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # รับข้อมูลจากฟอร์ม
+        # Get data from form
         name = request.form.get('username')
         username = request.form.get('username')
         password = request.form.get('password')
-        #email = request.form.get('email')
+        
         # Ensure username is not empty
         if not username:
             flash('Username is required', 'error')
@@ -97,24 +97,11 @@ def service():
 @app.route('/FAQ')
 def FAQ():
     return render_template('FAQ.html')
+
 @app.route('/save_card', methods=['POST'])
 @login_required
 def save_card():
-    data = request.get_json()
-
-    title = data.get('title')
-    content = data.get('content')
-
-    new_card = Card(title=title, content=content, user=current_user)
-    db.session.add(new_card)
-    db.session.commit()
-
-    return jsonify({"message": "Card saved successfully"})
-
-@app.route('/cards', methods=['POST', 'GET'])
-@login_required
-def card_create():
-    # create card
+    # Saving a new card
     if request.method == 'POST':
         data = request.get_json()
 
@@ -124,56 +111,69 @@ def card_create():
         new_card = Card(title=title, content=content, user=current_user)
         db.session.add(new_card)
         db.session.commit()
-        #print(new_card.id)
 
-        return jsonify({"id": new_card.id,'title':new_card.title,'content':new_card.content})
+        return jsonify({"message": "Card saved successfully"})
+
+    else:
+        # Handling unsupported method
+        return jsonify({"error": "Method not allowed"})
+
+@app.route('/cards', methods=['POST', 'GET'])
+@login_required
+def card_create():
+    # Create card
+    if request.method == 'POST':
+        data = request.get_json()
+
+        title = data.get('title')
+        content = data.get('content')
+
+        new_card = Card(title=title, content=content, user=current_user)
+        db.session.add(new_card)
+        db.session.commit()
+
+        return jsonify({"id": new_card.id, 'title': new_card.title, 'content': new_card.content})
+
+    # Retrieve all user cards
     elif request.method == 'GET':
         user_cards = Card.query.filter_by(user=current_user).all()
-        cards = [{'title': card.title, 'content': card.content, 'id': card.id } for card in user_cards]
+        cards = [{'title': card.title, 'content': card.content, 'id': card.id} for card in user_cards]
         return jsonify(cards)
-    else :
-        return 'Method not allowed'
+
+    else:
+        # Handling unsupported method
+        return jsonify({"error": "Method not allowed"})
 
 @app.route('/cards/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 @login_required
 def card(id):
     card = Card.query.get_or_404(id)
-    #print(request.method , id)
+
     if request.method == 'GET':
         return jsonify({'title': card.title, 'content': card.content})
+
     elif request.method == 'PUT':
         data = request.get_json()
-        #print(data)
+
         card.title = data.get('title')
         card.content = data.get('content')
 
         db.session.commit()
         return jsonify({'message': 'Card updated successfully'})
+
     elif request.method == 'DELETE':
         db.session.delete(card)
         db.session.commit()
         return jsonify({'message': 'Card deleted successfully'})
 
-@app.route('/update_profile', methods=['PUT'])
+from flask import render_template
+
+@app.route('/card/<int:id>')
 @login_required
-def update_profile():
-    if request.method == 'PUT':
-        data = request.form
+def card_details(id):
+    card = Card.query.get_or_404(id)
+    return render_template('card_details.html', card=card)
 
-        new_name = data.get('name')
-        new_password = data.get('password')
-
-        if new_name:
-            current_user.name = new_name
-
-        if new_password:
-            current_user.password = generate_password_hash(new_password)
-
-        db.session.commit()
-
-        return jsonify({"success": True})
-    else:
-        return jsonify({"success": False, "message": "Invalid request method"})
 
 if __name__ == "__main__":
     with app.app_context():

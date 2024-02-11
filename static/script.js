@@ -75,11 +75,9 @@ function showPopup(card, isViewOnly) {
 function createCard(cardTitle, cardContent, cardId) {
     let newCard = document.createElement("div");
     newCard.id = cardId;
-    console.log(cardId)
     newCard.className = "card";
-    const cardHTML = cardContent.split('\n').join('<br/>')
-    // newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardContent + "</p>";
-    newCard.innerHTML = "<h3 onclick=\"showPopup(this.parentElement, true)\">" + cardTitle + "</h3><p>" + cardHTML + "</p>";
+    const cardHTML = cardContent.split('\n').join('<br/>');
+    newCard.innerHTML = "<h3 onclick=\"showCardDetails('" + cardId + "')\">" + cardTitle + "</h3><p>" + cardHTML + "</p>";
 
     let editButton = createButton("Edit", "edit-button", function () {
         editCard(newCard);
@@ -109,6 +107,11 @@ function createCard(cardTitle, cardContent, cardId) {
 
     let cardContainer = document.getElementById("cardContainer");
     cardContainer.appendChild(newCard);
+}
+
+function showCardDetails(cardId) {
+    // Redirect to a new page with card details
+    window.location.href = "/card/" + cardId; // Assuming your route is /cards/<int:id>
 }
 
 function editCard(card) {
