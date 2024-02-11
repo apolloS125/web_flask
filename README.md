@@ -1,5 +1,8 @@
 # To-do-list
 This is just a prototype website because this is my first time doing a backend.
+
+This website is designed to help you manage your tasks. I will continue to update and improve it whenever I have the time. Perhaps in the future, I will implement features to push events from the learning management system (LMS) to display on your task list.
+
 Run this project with flask
 
 ## Getting Sta rted
