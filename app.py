@@ -94,6 +94,9 @@ def about():
 def service():
     return render_template('service.html')
 
+@app.route('/FAQ')
+def FAQ():
+    return render_template('FAQ.html')
 @app.route('/save_card', methods=['POST'])
 @login_required
 def save_card():
