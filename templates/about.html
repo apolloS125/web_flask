@@ -3,24 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
 </head>
 <body>
-    <div class="ppp">
-        <div class="pp">
-            <!-- Title card will show here -->
-        </div>
-    </div>
-    <div class="container">
-        <div class="main-content">
-            <div class="card_display">
-                <h1>Courses</h1>
-                <button onclick="addCard()">Add Card</button>
+    <nav>
+        <div class="container">
+            <div class="nav-con">
+                <div class="logo">
+                    <h3><a href="{{ url_for('engigear') }}">ENGIGEAR</a></h3>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Task</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">{{ current_user.name }}</a>
+                            <div class="dropdown-content">
+                                <a href="{{ url_for('edit') }}">Profile</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Task</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    </ul>
+                {% endif %}
             </div>
         </div>
-        <div id="cardContainer" class="card-container">
-            <!-- Cards will be added here -->
+    </nav>
+
+    <section class="about-section">
+        <div class="container">
+            <h1>About Us</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis eleifend elit. Aliquam vel sapien auctor, consequat elit vel, suscipit odio. Aliquam quis ultricies quam. Nullam tempus luctus massa nec varius. Suspendisse potenti. Nulla facilisi. Vivamus non ex nec erat auctor malesuada. Fusce feugiat lorem ut nibh ultrices, ac bibendum arcu bibendum. Curabitur suscipit massa vitae mi malesuada rutrum.</p>
+            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In pulvinar aliquet mi vel tristique. Vivamus nec libero non orci ultrices mollis. Sed nec pretium neque. Nam lacinia in velit sed feugiat. Aliquam auctor sollicitudin leo, eget convallis nisi dignissim vitae. Curabitur ultricies quam nec fermentum mollis. Nam vulputate, odio sit amet luctus finibus, mauris risus malesuada dui, ac iaculis justo ipsum eu risus. In sagittis risus nec odio molestie, vel aliquam eros fermentum.</p>
         </div>
-    </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 YourCompany. All rights reserved.</p>
+    </footer>
 </body>
 </html>

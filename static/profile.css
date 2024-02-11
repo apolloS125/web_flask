@@ -65,18 +65,12 @@ ul.menu li a:hover {
 }
 
 /* Dropdown styles */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    margin-top: 5px;
-}
-
 .dropdown-content {
-    display: none;
+    display: none; /* Hide the dropdown content by default */
     position: absolute;
     background-color: #333;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
@@ -84,6 +78,7 @@ ul.menu li a:hover {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
+    display: block;
 }
 
 .dropdown-content a:hover {
@@ -93,6 +88,7 @@ ul.menu li a:hover {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 
 /* Main content styles */
 .main-content {

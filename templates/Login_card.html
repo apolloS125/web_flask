@@ -18,11 +18,11 @@
                 </div>
                 <ul class="menu">
                     {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('blog') }}">Home</a></li>
+                    <li><a href="{{ url_for('blog') }}">Task</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
                     <li><a href="{{ url_for('blog') }}">Home</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
                     <li><a href="{{ url_for('contact') }}">Contact</a></li>
                     <li><a href="{{ url_for('register') }}">Register</a></li>
