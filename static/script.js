@@ -177,4 +177,3 @@ function clearSearch() {
         cards[i].style.display = "block";
     }
 }
-

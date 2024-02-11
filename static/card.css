@@ -3,7 +3,6 @@ body {
     padding: 0;
     font-family: 'Montserrat', sans-serif;
 }
-
 /* Navigation bar styles */
 nav {
     background-color: #333;
@@ -51,8 +50,8 @@ ul.menu li a:hover {
 /* Search bar */
 .search-bar {
     position: absolute;
-    right: 20px; /* Adjust right position */
-    top: 20px; /* Adjust top position */
+    right: 20px;
+    top: 20px;
     display: flex;
     align-items: center;
     z-index: 1000; /* Ensure search bar appears above other content */
