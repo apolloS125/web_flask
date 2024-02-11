@@ -1,8 +1,8 @@
-#To-do-list
+# To-do-list
 This is just a prototype website because this is my first time doing a backend.
 Run this project with flask
 
-## Getting Started
+## Getting Sta rted
 
 1. **Install virtual environment (venv):**
 
