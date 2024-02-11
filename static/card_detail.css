@@ -79,3 +79,16 @@ ul.menu li a:hover {
     width: 80%;
     margin: 0 auto;
 }
+.back-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    background-color: #555;
+}
