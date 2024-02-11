@@ -22,7 +22,7 @@
                         <li><a href="{{ url_for('blog') }}">Task</a></li>
                         <li><a href="{{ url_for('about') }}">About</a></li>
                         <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
-                        <li><a href="#">Service</a></li>
+                        <li><a href="{{ url_for('service') }}">Service</a></li>
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropbtn">{{ current_user.name }}</a>
@@ -37,7 +37,7 @@
                         <li><a href="{{ url_for('blog') }}">Task</a></li>
                         <li><a href="{{ url_for('about') }}">About</a></li>
                         <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
-                        <li><a href="#">Service</a></li>
+                        <li><a href="{{ url_for('service') }}">Service</a></li>
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>
                         <li><a href="{{ url_for('login') }}">Login</a></li>
                     </ul>
@@ -58,9 +58,6 @@
         </div>
         <div class="card">
             <span class="facebook"><i class="fab fa-facebook"></i></span>
-        </div>
-        <div class="card">
-
         </div>
         <div class="card">
             <span class="discord"><i class="fab fa-discord"></i></span>

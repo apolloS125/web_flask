@@ -90,6 +90,10 @@ def edit():
 def about():
     return render_template('about.html')
 
+@app.route('/service')
+def service():
+    return render_template('service.html')
+
 @app.route('/save_card', methods=['POST'])
 @login_required
 def save_card():

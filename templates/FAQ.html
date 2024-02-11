@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Display</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='card.css') }}">
+    <title>Document</title>
 </head>
 <body>
     <nav>
@@ -41,25 +40,5 @@
             </div>
         </div>
     </nav>
-
-    <div class="container">
-        <div class="main-content">
-            <div class="card_display">
-                <!-- Search bar -->
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search...">
-                    <button onclick="search()">Search</button>
-                </div>
-                <!-- End of search bar -->
-                <h1>Courses</h1>
-                <button onclick="addCard()">Add Card</button>
-            </div>
-        </div>
-        <div id="cardContainer" class="card-container">
-            <!-- Cards will be added here -->
-        </div>
-    </div>
-    <script src="{{ url_for('static', filename='services/cardServices.js') }}"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

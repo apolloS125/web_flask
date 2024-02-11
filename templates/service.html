@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='service.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-con">
+                <div class="logo">
+                    <h3><a href="{{ url_for('engigear') }}">ENGIGEAR</a></h3>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Task</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="{{ url_for('service') }}">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">{{ current_user.name }}</a>
+                            <div class="dropdown-content">
+                                <a href="{{ url_for('edit') }}">Profile</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="menu">
+                        <li><a href="{{ url_for('blog') }}">Task</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100076391032639">Page</a></li>
+                        <li><a href="{{ url_for('service') }}">Service</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="service-section">
+        <div class="container">
+            <h1>Our Services</h1>
+            <div class="service">
+                <h2>Service Title 1</h2>
+                <p>Description of service 1 goes here.</p>
+            </div>
+            <div class="service">
+                <h2>Service Title 2</h2>
+                <p>Description of service 2 goes here.</p>
+            </div>
+            <div class="service">
+                <h2>Service Title 3</h2>
+                <p>Description of service 3 goes here.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ENGIGEAR. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
